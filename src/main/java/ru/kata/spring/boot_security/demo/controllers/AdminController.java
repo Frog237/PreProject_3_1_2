@@ -27,7 +27,6 @@ public class AdminController {
 	}
 
 	@GetMapping(value = "/admin")
-	@PreAuthorize("hasRole('ADMIN')")
 	public String usersList(ModelMap model) {
 		List<User> users = userService.findAll();
 		model.addAttribute("users", users);
@@ -38,7 +37,6 @@ public class AdminController {
 	}
 
 	@PostMapping(value = "/admin/add")
-	@PreAuthorize("hasRole('ADMIN')")
 	public String addUser(
 			@RequestParam("firstName") String firstName,
 			@RequestParam("lastName") String lastName,
@@ -56,7 +54,6 @@ public class AdminController {
 	}
 
 	@PostMapping(value = "/admin/delete")
-	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteUser(
 			@RequestParam("id") Integer id) {
 		userService.delete(id);
@@ -64,7 +61,6 @@ public class AdminController {
 	}
 
 	@GetMapping(value = "/admin/edit")
-	@PreAuthorize("hasRole('ADMIN')")
 	public String editUserForm(@RequestParam("id") Integer id, ModelMap model) {
 		User user = userService.findById(id);
 		model.addAttribute("user", user);
@@ -76,7 +72,6 @@ public class AdminController {
 	}
 
 	@PostMapping(value = "/admin/update")
-	@PreAuthorize("hasRole('ADMIN')")
 	public String updateUser(
 			@RequestParam("id") Integer id,
 			@RequestParam("firstName") String firstName,
