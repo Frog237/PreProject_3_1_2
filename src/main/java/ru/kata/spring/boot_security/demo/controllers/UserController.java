@@ -20,7 +20,7 @@ public class UserController {
     @GetMapping(value = "/user")
     public String user(Model model, Authentication authentication) {
         // Получаем текущего пользователя
-        User currentUser = (User) authentication.getPrincipal();
+        User currentUser = userService.findByEmail(authentication.getName());
 
         model.addAttribute("user", currentUser);
         return "user";

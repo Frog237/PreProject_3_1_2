@@ -45,10 +45,7 @@ public class AdminController {
 			@RequestParam("password") String password,
 			@RequestParam("roleIds") List<Long> roleIds) {
 		User addedUser = new User(firstName, lastName, age, email, password);
-		Set<Role> roles = roleIds.stream()
-				.map(roleId -> userService.findRoleById(roleId))
-				.collect(Collectors.toSet());
-		addedUser.setRoles(roles);
+		addedUser.setRoles(userService.findRolesByIds(roleIds));
 		userService.add(addedUser);
 		return "redirect:/admin";
 	}
@@ -87,10 +84,7 @@ public class AdminController {
 		updatedUser.setAge(age);
 		updatedUser.setEmail(email);
 		updatedUser.setPassword(password);
-		Set<Role> roles = roleIds.stream()
-				.map(roleId -> userService.findRoleById(roleId))
-				.collect(Collectors.toSet());
-		updatedUser.setRoles(roles);
+		updatedUser.setRoles(userService.findRolesByIds(roleIds));
 
 		userService.update(updatedUser);
 		return "redirect:/admin";
